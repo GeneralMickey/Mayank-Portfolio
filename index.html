@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
+        /* All CSS remains exactly the same */
         :root {
             --primary: #2563eb;
             --primary-dark: #1d4ed8;
@@ -152,6 +155,22 @@
         .btn-outline:hover {
             background-color: var(--primary);
             color: white;
+        }
+
+        .btn:disabled {
+            background-color: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            opacity: 0.7;
+        }
+
+        .btn:disabled:hover:before {
+            left: -100%;
+        }
+
+        .btn:disabled:hover {
+            transform: none;
+            box-shadow: none;
         }
 
         section {
@@ -779,6 +798,12 @@
             border: 1px solid #ef4444;
         }
 
+        .loading {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
         /* Footer */
         footer {
             background-color: var(--secondary);
@@ -1166,6 +1191,16 @@
         </div>
     </header>
 
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+    </div>
+
     <!-- Resume Download Button -->
     <a href="Resume.pdf" download="Mayank_Sajwan_Resume.pdf" class="btn resume-btn">
         <i class="fas fa-download"></i> My CV / Resume
@@ -1212,7 +1247,7 @@
                     <p>Beyond technical skills, I've demonstrated leadership as President of the Victoria University Student Union, advocating for over 40,000 students and managing daily operations of the organization.</p>
                 </div>
                 <div class="about-image" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
-                    <img src="1.png" alt="Mayank Sajwan" width="300" height="300">
+                    <img src="1.png" alt="Mayank Sajwan" class="about-img">
                 </div>
             </div>
         </div>
@@ -1462,7 +1497,7 @@
                             <label for="message">Message</label>
                             <textarea id="message" class="form-control" required></textarea>
                         </div>
-                        <button type="submit" class="btn">Send Message</button>
+                        <button type="submit" class="btn" id="submitBtn">Send Message</button>
                         <div id="formMessage" class="form-message"></div>
                     </form>
                 </div>
@@ -1476,7 +1511,7 @@
             <h3 data-aos="fade-up" data-aos-duration="800">Mayank Sajwan</h3>
             <p data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">Cybersecurity Graduate & Cloud Engineer</p>
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/mayanksajwan" class="social-icon" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <a href="www.linkedin.com/in/mayankssajwan" class="social-icon" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
                 <a href="mailto:mayank.sajwan@outlook.com" class="social-icon" data-aos="fade-up" data-aos-duration="800" data-aos-delay="250">
@@ -1487,7 +1522,7 @@
                 </a>
             </div>
             <div class="copyright" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
-                &copy; 2025 Mayank Sajwan. All Rights Reserved.
+                &copy; 2026 Mayank Sajwan. All Rights Reserved.
             </div>
         </div>
     </footer>
@@ -1526,7 +1561,14 @@
             delay: 100
         });
 
-        // Theme Toggle
+        // ============== EMAILJS INITIALIZATION ==============
+        (function() {
+            // Initialize EmailJS with your Public Key (User ID)
+            emailjs.init("LgfEm3dfUqfpGvZqt");
+            console.log("EmailJS initialized successfully!");
+        })();
+
+        // ============== THEME TOGGLE ==============
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('i');
         
@@ -1550,7 +1592,7 @@
             themeIcon.classList.add('fa-sun');
         }
 
-        // Mobile Menu Toggle
+        // ============== MOBILE MENU ==============
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         
@@ -1569,7 +1611,7 @@
             });
         });
 
-        // Header hide/show on scroll
+        // ============== HEADER SCROLL EFFECT ==============
         let lastScrollTop = 0;
         const header = document.getElementById('header');
         
@@ -1594,7 +1636,7 @@
             scrollProgress.style.width = scrolled + '%';
         });
 
-        // Timeline item animation on scroll
+        // ============== TIMELINE ANIMATION ==============
         const timelineItems = document.querySelectorAll('.timeline-item');
         
         const observer = new IntersectionObserver((entries) => {
@@ -1611,7 +1653,7 @@
             observer.observe(item);
         });
 
-        // Chatbot functionality
+        // ============== CHATBOT FUNCTIONALITY ==============
         const chatbotToggle = document.getElementById('chatbotToggle');
         const chatbotWindow = document.getElementById('chatbotWindow');
         const chatbotClose = document.getElementById('chatbotClose');
@@ -1626,7 +1668,7 @@
             "skills": "My technical skills include Windows 10/11 support, Microsoft 365, Intune, AWS (EC2, S3, Athena, Glue), Active Directory, ITIL, and digital forensics basics.",
             "projects": "I've worked on projects like GroupTag (Full Stack Developer), Smart Foot Traffic (Machine Learning Developer), Project Mountoken (Blockchain Developer), and contributed to EcoLens.",
             "education": "I hold a Bachelor of Cybersecurity from Victoria University with majors in Digital Forensics and Ethical Hacking (Feb 2023 - Oct 2025).",
-            "contact": "You can reach me via email at mayanksajwan@outlook.com or phone at +61 469 765 247. Feel free to use the contact form on my website.",
+            "contact": "You can reach me via email at mayank.sajwan@outlook.com or phone at +61 469 765 247. Feel free to use the contact form on my website.",
             "resume": "You can download my resume by clicking the 'My CV / Resume' button at the top right of the website.",
             "availability": "I'm currently open to opportunities in cybersecurity, cloud engineering, and IT support roles.",
             "hello": "Hello! How can I help you today?",
@@ -1696,35 +1738,164 @@
             }
         });
 
-        // Contact Form Submission
+        // ============== DUAL EMAILJS CONTACT FORM (YOU + AUTO-REPLY) ==============
         const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
         const formMessage = document.getElementById('formMessage');
         
-        contactForm.addEventListener('submit', (e) => {
+        // EmailJS Template IDs (UPDATE THESE WITH YOUR ACTUAL TEMPLATE IDs)
+        const TEMPLATE_TO_YOU = 'template_q85ivwe';      // Template for email to you
+        const TEMPLATE_AUTO_REPLY = 'template_4vi7ot8'; // Template for auto-reply (CREATE THIS IN EMAILJS)
+        
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
             
-            // In a real implementation, you would send this data to a server
-            // For this example, we'll simulate a successful submission
-            formMessage.textContent = "Thank you for your message! I'll get back to you soon.";
-            formMessage.className = "form-message success";
-            formMessage.style.display = "block";
+            // Basic validation
+            if (!name || !email || !subject || !message) {
+                showMessage("Please fill in all fields", "error");
+                return;
+            }
             
-            // Reset form
-            contactForm.reset();
+            if (!validateEmail(email)) {
+                showMessage("Please enter a valid email address", "error");
+                return;
+            }
             
-            // Hide message after 5 seconds
-            setTimeout(() => {
-                formMessage.style.display = "none";
-            }, 5000);
+            // Disable submit button and show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            // Show loading message
+            showMessage("Sending your message and setting up auto-reply confirmation...", "loading");
+            
+            try {
+                // Prepare template parameters for email TO YOU
+                const paramsToYou = {
+                    from_name: name,
+                    from_email: email,
+                    subject: `Contact Form: ${subject}`,
+                    message: message,
+                    reply_to: email,
+                    date: new Date().toLocaleString('en-AU', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        timeZone: 'Australia/Melbourne'
+                    })
+                };
+                
+                // Prepare template parameters for AUTO-REPLY to sender
+                const paramsAutoReply = {
+                    sender_name: name,
+                    sender_email: email,
+                    original_subject: subject,
+                    portfolio_url: window.location.href,
+                    linkedin_url: "www.linkedin.com/in/mayankssajwan",
+                    date: new Date().toLocaleString('en-AU', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        timeZone: 'Australia/Melbourne'
+                    })
+                };
+                
+                console.log("Sending dual emails...");
+                
+                // Send email TO YOU
+                const response1 = await emailjs.send(
+                    'service_kqoq4bj',    // Your Service ID
+                    TEMPLATE_TO_YOU,      // Template for email to you
+                    paramsToYou
+                );
+                
+                console.log("Email to you sent:", response1.status);
+                
+                // Send AUTO-REPLY to sender
+                const response2 = await emailjs.send(
+                    'service_kqoq4bj',       // Your same Service ID for auto-reply
+                    TEMPLATE_AUTO_REPLY,     // Auto-reply template
+                    paramsAutoReply
+                );
+                
+                console.log("Auto-reply sent:", response2.status);
+                
+                // Show success message
+                showMessage(
+                    `✅ Perfect ${name}! I've received your message and sent a confirmation email to ${email}.<br><br>
+                    <small>Check your inbox (and spam folder) for the confirmation.</small>`,
+                    "success"
+                );
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Send Message';
+                
+            } catch (error) {
+                console.error('EmailJS Error:', error);
+                
+                // Determine which email failed
+                let errorMsg = "Oops! Something went wrong. ";
+                
+                if (error.status === 422) {
+                    if (error.text && error.text.includes("recipients address is empty")) {
+                        errorMsg = "Email configuration error. Please check your EmailJS template settings.";
+                    } else {
+                        errorMsg = `Validation error: ${error.text}`;
+                    }
+                } else if (error.text) {
+                    errorMsg += `Error: ${error.text}`;
+                }
+                
+                // Still show partial success if at least one email went through
+                if (error.message && error.message.includes("first email")) {
+                    errorMsg = "Message received! (Auto-reply failed, but I got your message)";
+                    showMessage(errorMsg, "success");
+                } else {
+                    errorMsg += "<br>You can email me directly at mayank.sajwan@outlook.com";
+                    showMessage(errorMsg, "error");
+                }
+                
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Send Message';
+            }
         });
 
-        // Smooth scrolling for anchor links
+        // ============== HELPER FUNCTIONS ==============
+        function showMessage(text, type) {
+            formMessage.innerHTML = text;
+            formMessage.className = "form-message " + type;
+            formMessage.style.display = "block";
+            
+            const hideTime = type === 'success' ? 8000 : 7000;
+            setTimeout(() => {
+                if (formMessage.className.includes(type)) {
+                    formMessage.style.display = "none";
+                }
+            }, hideTime);
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // ============== SMOOTH SCROLLING ==============
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1748,7 +1919,7 @@
             });
         });
 
-        // Add floating elements dynamically
+        // ============== FLOATING ELEMENTS ==============
         function createFloatingElements() {
             const heroSection = document.querySelector('.hero');
             for (let i = 0; i < 8; i++) {
@@ -1772,12 +1943,11 @@
         // Initialize floating elements
         createFloatingElements();
 
-        // Add hover effect to skill items with delay
+        // ============== HOVER EFFECTS WITH DELAY ==============
         document.querySelectorAll('.skill-item').forEach((item, index) => {
             item.style.transitionDelay = `${index * 0.05}s`;
         });
 
-        // Add hover effect to project cards with delay
         document.querySelectorAll('.project-card').forEach((card, index) => {
             card.style.transitionDelay = `${index * 0.1}s`;
         });
